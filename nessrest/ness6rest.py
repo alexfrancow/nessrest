@@ -354,10 +354,13 @@ class Scanner(object):
         self.policy_name = name
         self.action(action="policies", method="GET")
 
-        for policy in self.res["policies"]:
-            if policy["name"] == name:
-                self.policy_id = policy["id"]
-                return True
+        if not self.res["policies"]:
+            return False
+        else:
+            for policy in self.res["policies"]:
+                if policy["name"] == name:
+                    self.policy_id = policy["id"]
+                    return True
 
         return False
 
